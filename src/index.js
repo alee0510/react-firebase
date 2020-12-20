@@ -15,9 +15,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './main'
 
 // setup redux
-import Reducer from './redux'
+import { reducers } from './redux'
 import config from './firebase'
-const store = createStore(Reducer, {}, composeWithDevTools(compose(
+const store = createStore(reducers , {}, composeWithDevTools(compose(
     applyMiddleware(ReduxThunk.withExtraArgument({ getFirestore })),
     reduxFirestore(config)
 )))
