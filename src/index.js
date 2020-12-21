@@ -5,8 +5,10 @@ import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import ReduxThunk from 'redux-thunk'
 
-// integrate firestore
+// integrate firebase firestore
 import { getFirestore, reduxFirestore } from 'redux-firestore'
+import { getFirebase, reactReduxFirebase } from 'react-redux-firebase'
+
 
 // boostrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,10 +18,11 @@ import Main from './main'
 
 // setup redux
 import { reducers } from './redux'
-import config from './firebase'
+import fbconfig from './firebase'
 const store = createStore(reducers , {}, composeWithDevTools(compose(
-    applyMiddleware(ReduxThunk.withExtraArgument({ getFirestore })),
-    reduxFirestore(config)
+    applyMiddleware([ReduxThunk.withExtraArgument({ getFirebase, getFirestore })]),
+    reactReduxFirebase(fbconfig),
+    reduxFirestore(fbconfig),
 )))
 
 // render the main app

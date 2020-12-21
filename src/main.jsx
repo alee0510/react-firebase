@@ -4,13 +4,13 @@ import React from 'react'
 import NavigationBar from './components/navbar'
 
 // pages
-import Firebase from './pages/firebase'
+import Products from './pages/products'
 
 const Main = _ => {
     return (
         <div>
             <NavigationBar/>
-            <Firebase/>
+            <Products/>
         </div>
     )
 }
