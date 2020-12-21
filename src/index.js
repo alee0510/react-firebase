@@ -1,14 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import ReduxThunk from 'redux-thunk'
-
-// integrate firebase firestore
-import { getFirestore, reduxFirestore } from 'redux-firestore'
-import { getFirebase, reactReduxFirebase } from 'react-redux-firebase'
-
+import { createFirestoreInstance } from 'redux-firestore'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 // boostrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,18 +11,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './main'
 
 // setup redux
-import { reducers } from './redux'
-import fbconfig from './firebase'
-const store = createStore(reducers , {}, composeWithDevTools(compose(
-    applyMiddleware([ReduxThunk.withExtraArgument({ getFirebase, getFirestore })]),
-    reactReduxFirebase(fbconfig),
-    reduxFirestore(fbconfig),
-)))
+import createReduxStore from './redux'
+import firebase from './firebase'
+const store = createReduxStore({})
+const config = { 
+    firebase, 
+    config : { userProfile: 'users' }, 
+    dispatch : store.dispatch, 
+    createFirestoreInstance 
+}
 
 // render the main app
 ReactDOM.render(
     <Provider store={store}>
-        <Main/>
+        <ReactReduxFirebaseProvider {...config}>
+            <Main/>
+        </ReactReduxFirebaseProvider>
     </Provider>
-    , document.getElementById("root")
+    ,document.getElementById("root")
 )
