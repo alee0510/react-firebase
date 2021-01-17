@@ -1,11 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
-import { getFirestore, firestoreReducer } from 'redux-firestore'
+import { firestoreReducer } from 'redux-firestore'
 import { getFirebase, firebaseReducer } from 'react-redux-firebase'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 // actions
-import { AddProduct } from './actions/products'
+import { AddProduct } from './actions'
 export const actions = { AddProduct }
 
 // reducers
@@ -15,7 +15,7 @@ export const reducers = combineReducers({
 })
 
 // createstore
-const middlewares = [ReduxThunk.withExtraArgument({ getFirebase, getFirestore })]
+const middlewares = [ReduxThunk.withExtraArgument(getFirebase)]
 const createReduxStore = initial => createStore(
     reducers, initial,
     composeWithDevTools(applyMiddleware(...middlewares))

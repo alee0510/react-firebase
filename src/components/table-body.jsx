@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
-import { Form, Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 const TableBody = () => {
     // connect to firebase
@@ -12,7 +12,7 @@ const TableBody = () => {
         <tr key={item.id}>
             <td>{index + 1}</td>
             <td>
-                <img src={item.image} width="50px" alt="product-image"/>
+                <img src={item.image} width="50px" alt="product"/>
             </td>
             <td>{item.name}</td>
             <td>{item.stock}</td>
@@ -23,7 +23,7 @@ const TableBody = () => {
             </td>
         </tr>
     ))
-    console.log(data)
+    // console.log(data)
 
     return <tbody>{generate()}</tbody>
 }
