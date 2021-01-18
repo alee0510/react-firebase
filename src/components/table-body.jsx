@@ -1,7 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { Form, Button } from 'react-bootstrap'
+import { actions } from '../redux'
 import useInputRefs from '../hooks/use-input-refs'
 
 const { useState } = React
@@ -9,6 +10,7 @@ const TableBody = () => {
     // state
     const [id, setId] = useState('')
     const [refs, bind] = useInputRefs(new Array(2))
+    const dispatch = useDispatch()
 
     // connect to firebase
     useFirestoreConnect(['products'])
@@ -22,7 +24,19 @@ const TableBody = () => {
         const values = refs.current.map(item => item.value)
 
         // edit value
+        dispatch(actions.EditProduct(id, { stock : parseInt(values[0]), price : parseInt(values[1])}))
 
+        // reset state
+        OnBtnCancel()
+    }
+
+    // delete
+    const OnBtnDelete = e => {
+        // get id
+        const id = e.target.value
+
+        // delete product
+        dispatch(actions.DeleteProduct(id))
     }
 
     // generate data
@@ -78,6 +92,7 @@ const TableBody = () => {
                         variant="danger" 
                         value={item.id} 
                         className="btn-product"
+                        onClick={OnBtnDelete}
                     >
                         Delete
                     </Button>

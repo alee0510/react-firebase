@@ -5,8 +5,8 @@ import { getFirebase, firebaseReducer } from 'react-redux-firebase'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 // actions
-import { AddProduct } from './actions'
-export const actions = { AddProduct }
+import { AddProduct, EditProduct, DeleteProduct } from './actions'
+export const actions = { AddProduct, EditProduct, DeleteProduct }
 
 // reducers
 export const reducers = combineReducers({
