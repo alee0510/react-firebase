@@ -2,22 +2,16 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
 import { actions } from '../redux'
+import useInputRefs from '../hooks/use-input-refs'
 
-const { useRef } = React
 const TableFooter = _ => {
-    const refs = useRef(new Array(4))
+    const [refs, bind] = useInputRefs(new Array(4))
     const dispatch = useDispatch()
-
-    // bind refs
-    const bind = index => ({ ref : e => refs.current[index] = e})
 
     // add data
     const OnBtnAdd = _ => {
-        console.log('refs : ', refs.current)
-
         // get values
         const values = refs.current.map(item => item.value)
-        console.log('value : ', values)
 
         // add new value
         dispatch(actions.AddProduct({

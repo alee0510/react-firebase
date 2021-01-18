@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-export const useInputRefs = initial => {
+const useInputRefs = initial => {
     // set reference
     const refs = useRef(initial)
 
@@ -10,3 +10,5 @@ export const useInputRefs = initial => {
     // return a value
     return [refs, bind]
 }
+
+export default useInputRefs
