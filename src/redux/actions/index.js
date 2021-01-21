@@ -1,3 +1,4 @@
+// products
 export const AddProduct = body => {
     return async (dispatch, getState, getFirebase) =>{
         try {
@@ -30,3 +31,5 @@ export const DeleteProduct = id => {
         }
     }
 }
+
+// users
