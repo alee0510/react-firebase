@@ -33,3 +33,38 @@ export const DeleteProduct = id => {
 }
 
 // users
+export const SignIn = body => {
+    return async (dispatch, getState, getFirebase) => {
+        try {
+            const auth = getFirebase().auth()
+            const res = await auth.signInWithEmailAndPassword(body.email, body.password)
+            console.log('signin res : ', res)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export const SignOut = _ => {
+    return async (dispatch, getState, getFirebase) => {
+        try {
+            const auth = getFirebase().auth()
+            const res = await auth.signOut()
+            console.log('signout res : ', res)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export const SignUp = body => {
+    return async (dispatch, getState, getFirebase) => {
+        try {
+            const auth = getFirebase().auth()
+            const res = await auth.createUserWithEmailAndPassword(body.email, body.password)
+            console.log('sigup resp : ', res)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
