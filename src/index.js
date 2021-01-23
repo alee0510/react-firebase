@@ -12,6 +12,9 @@ import './index.css'
 // main app
 import Main from './main'
 
+// auth-loader
+import AuthLoader from './components/auth-loader'
+
 // setup redux
 import createReduxStore from './redux'
 import firebase from './firebase'
@@ -28,7 +31,9 @@ ReactDOM.render(
     <Provider store={store}>
         <ReactReduxFirebaseProvider {...config}>
             <BrowserRouter>
-                <Main/>
+                <AuthLoader>
+                    <Main/>
+                </AuthLoader>
             </BrowserRouter>
         </ReactReduxFirebaseProvider>
     </Provider>

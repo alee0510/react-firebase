@@ -8,7 +8,6 @@ import SignUp from './pages/signup'
 import SignIn from './pages/signin'
 
 const Main = _ => {
-
     return (
         <div>
             <Route path="/" component={SignIn} exact/>
