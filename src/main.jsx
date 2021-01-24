@@ -1,6 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import PrivateRoute from './private-route'
+import { PrivateRoute, AuthRoute } from './router'
 
 // pages
 import Products from './pages/products'
@@ -10,8 +9,8 @@ import SignIn from './pages/signin'
 const Main = _ => {
     return (
         <div>
-            <Route path="/" component={SignIn} exact/>
-            <Route path="/signup" component={SignUp}/>
+            <AuthRoute path="/" component={SignIn} exact/>
+            <AuthRoute path="/signup" component={SignUp}/>
             <PrivateRoute path="/home" component={Products}/>
         </div>
     )

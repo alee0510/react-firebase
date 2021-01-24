@@ -33,14 +33,19 @@ export const DeleteProduct = id => {
 }
 
 // users
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 export const SignIn = body => {
     return async (dispatch, getState, getFirebase) => {
         try {
             const auth = getFirebase().auth()
             const res = await auth.signInWithEmailAndPassword(body.email, body.password)
             console.log('signin res : ', res)
+
+            dispatch({ type : AUTH_SUCCESS})
         } catch (err) {
             console.log(err)
+            dispatch({ type : AUTH_ERROR, payload : err.message})
         }
     }
 }
@@ -51,8 +56,11 @@ export const SignOut = _ => {
             const auth = getFirebase().auth()
             const res = await auth.signOut()
             console.log('signout res : ', res)
+
+            dispatch({ type : AUTH_SUCCESS})
         } catch (err) {
             console.log(err)
+            dispatch({ type : AUTH_ERROR, payload : err.message})
         }
     }
 }
@@ -61,10 +69,25 @@ export const SignUp = body => {
     return async (dispatch, getState, getFirebase) => {
         try {
             const auth = getFirebase().auth()
+            const db = getFirebase().firestore()
+
+            // validate password confirmation
+            if (body.password !== body.repassword) {
+                dispatch({ type : AUTH_ERROR, payload : 'password doesn\'t match.'})
+                return
+            }
+            
+            // do signup
             const res = await auth.createUserWithEmailAndPassword(body.email, body.password)
-            console.log('sigup resp : ', res)
+            console.log('signup resp : ', res)
+            
+            // create user profile in firestore
+            await db.collection('users').doc(res.user.uid).set({ role : "user"})
+
+            dispatch({ type : AUTH_SUCCESS})
         } catch (err) {
             console.log(err)
+            dispatch({ type : AUTH_ERROR, payload : err.message})
         }
     }
 }

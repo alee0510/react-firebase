@@ -3,14 +3,16 @@ import ReduxThunk from 'redux-thunk'
 import { firestoreReducer } from 'redux-firestore'
 import { getFirebase, firebaseReducer } from 'react-redux-firebase'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import * as ReduxActions from './actions'
+import AuthReducer from './reducers'
 
 // actions
-import * as ReduxActions from './actions'
 export const actions = { ...ReduxActions }
 // export const actions = { AddProduct, EditProduct, DeleteProduct, SignIn, SignUp, SignOut }
 
 // reducers
 export const reducers = combineReducers({
+    auth : AuthReducer,
     firebase : firebaseReducer,
     firestore : firestoreReducer
 })

@@ -21,7 +21,7 @@ import firebase from './firebase'
 const store = createReduxStore({})
 const config = { 
     firebase, 
-    config : { userProfile: 'users' }, 
+    config : { userProfile: 'users', useFirestoreForProfile: true }, 
     dispatch : store.dispatch, 
     createFirestoreInstance 
 }
